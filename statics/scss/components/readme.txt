@@ -1,0 +1,1 @@
+this folder should contain styles for reusable components

@@ -1,0 +1,43 @@
+// Contains utility Classes
+
+.bg-primary {
+}
+
+.bg-light {
+}
+
+.bg-dark {
+}
+
+.flex {
+    display: flex;
+}
+
+.grid {
+    display: grid;
+}
+
+.grid-col-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.center {
+    margin: 0 auto;
+}
+
+.items-center {
+    align-items: center;
+}
+.bold {
+    font-weight: bold;
+}
+
+.text-align-right {
+    text-align: right;
+}
+.text-align-center {
+    text-align: center;
+}
+.text-align-left {
+    text-align: left;
+}

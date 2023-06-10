@@ -1,29 +1,21 @@
-import { HomeController } from "./Controllers/HomeController.js";
-import { PageController } from "./Controllers/PageController.js";
-
 export class Router {
-	#_pages = PageController.GetPages();
-	#_currentPage= PageController.GetCurrentPage();
-	#_controllers = {
-		[this.#_pages.home]: new HomeController().Init,
-	};
 	constructor() {
 	}
 
-	GetControllers = () => {
-		return this.#_controllers;
-	};
+	Route = async () => {
+		const name = window.location.pathname;
+		let pageName = name.split("/").pop();
+		pageName = pageName.split(".").shift();
+		const controllerName = convertToPascalCase(pageName);
+		
+		const {[controllerName + 'Controller']: Controller} = await import("./Controllers/" + controllerName + 'Controller.js');
+		const controller = new Controller();
+		controller.Init();
 
-	Route = () => {
-		const currentPageFile = this.#_currentPage.substring(this.#_currentPage.lastIndexOf("/" + 1));
-		for (const page in this.#_pages) {
-			if (this.#_currentPage.includes(this.#_pages[page])) {
-				const controller = this.#_controllers[this.#_pages[page]];
-				if (controller) {
-					controller();
-					break;
-				}
-			}
+		function convertToPascalCase(input) {
+			const words = input.split(/[_\-]/);
+			const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
+			return capitalizedWords.join('');
 		}
 	};
 }
